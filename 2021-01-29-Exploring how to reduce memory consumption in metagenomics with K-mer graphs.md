@@ -54,17 +54,17 @@ def kmer_probability(k):
     assuming an average length of 1000
     '''
     
-    if k<20:
+    if k<11:
         raise ValueError(
         "input k must be greater than 
-        20 for probability to be less than 1")
+        11 for probability to be less than 1")
         
     if k - int(k) != 0:
         raise ValueError(
         "Input must be an integer 
         (not type, just k - int_part(k) == 0)")
         
-    return ((1001-k)**2)/(2**k)
+    return (2*((1001-k)**2))/(4**k)
 
 def np_calculator(n, k):
     
@@ -91,7 +91,7 @@ def plot_kmers_against_largestCCs(kmer_range):
     
     results_1billion = []
     
-    kmer_sizes = np.array([k for k in range(20,20+kmer_range)])
+    kmer_sizes = np.array([k for k in range(10,10+kmer_range)])
     
     nps_1million = [np_calculator(10**6, k) for k in kmer_sizes]
     nps_10million = [np_calculator(10**7, k) for k in kmer_sizes]
@@ -154,7 +154,7 @@ def plot_kmers_against_largestCCs(kmer_range):
     results_100million, 
     results_1billion
 
-kmer_range = 40
+kmer_range = 21
 
 results = plot_kmers_against_largestCCs(kmer_range)
 
@@ -163,11 +163,11 @@ plt.plot(results[0], results[1], label='1 Million sequences')
 plt.plot(results[0], results[2], label='10 Million sequences')
 plt.plot(results[0], results[3], label='100 Million sequences')
 plt.plot(results[0], results[4], label='1 Billion sequences')
-plt.hlines(10**6, 20, 20+kmer_range, linestyles='dashed')
+plt.hlines(10**6, 11, 11+kmer_range, linestyles='dashed')
 plt.xlabel('K-mer sizes')
 plt.ylabel('Largest Connected Component')
 plt.yscale('log')
-plt.xticks(np.arange(20,20+kmer_range, 5))
+plt.xticks(np.arange(11,11+kmer_range, 5))
 plt.legend()
 ```
 
